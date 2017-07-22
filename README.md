@@ -2,7 +2,7 @@
 
 #### Install python environment
 ---------------------------------
-python3.5 -m venv <venv name>
+python3.5 -m venv venv_name
 
 #### Project configuration process
 ---------------------------------
