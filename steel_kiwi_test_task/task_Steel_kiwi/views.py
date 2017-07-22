@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 def show_all_categories(request):
+    """
+    :param request:
+    :return: all categories or error if request not get
+    """
     if request.method == 'GET':
         all_categories = get_list_or_404(Category, is_active=True)
         args = {'categories': all_categories, 'title': 'All categories', 'error': False}
@@ -21,6 +25,11 @@ def show_all_categories(request):
 
 
 def show_all_category_products(request, slug=None):
+    """
+    :param request:
+    :param slug: category slag
+    :return: all products in category or error if request not get
+    """
     if request.method == 'GET':
         all_products = get_list_or_404(Product, category__slug=slug, is_active=True)
         args = {
@@ -38,6 +47,12 @@ def show_all_category_products(request, slug=None):
 
 
 def show_product_detail(request, category_slug=None, slug=None):
+    """
+    :param request:
+    :param category_slug: category slug
+    :param slug: product slug
+    :return: product detail or error if request not get
+    """
     if request.method == 'GET':
         category = get_object_or_404(Category, slug=category_slug)
         product = get_object_or_404(Product, slug=slug, is_active=True)
@@ -58,6 +73,11 @@ def show_product_detail(request, category_slug=None, slug=None):
 
 
 def last_add_item(request):
+    """
+    :param request:
+    :return: return all product if product was created at last 24 hours or error if request not get and user not
+    authenticated
+    """
     if request.method == 'GET':
         if request.user.is_authenticated:
             products = get_list_or_404(Product, created_at__gte=datetime.datetime.now() - datetime.timedelta(days=1),
