@@ -1,5 +1,9 @@
 # Steel-Kiwi-test
 
+#### Install python environment
+---------------------------------
+python3.5 -m venv <venv name>
+
 #### Project configuration process
 ---------------------------------
 #### Commands for creating a database (postgres)
