@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block title %}
+            {{ title }}
+    {% endblock %}
+    {% block data_content %}
+        <a href="/products/last_added_products/" title="Only for authorized users!">New Product list</a> &nbsp; &nbsp; &nbsp;
+        {% if not error %}
+            {% for cat in categories %}
+                <div>
+                    <h3>{{ cat.name }}</h3>
+                    <p>{{ cat.description }}</p>
+                    <a href="/products/{{ cat.slug }}/">Detail</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>{{ msg }}</h1>
+        {% endif %}
+    {% endblock %}

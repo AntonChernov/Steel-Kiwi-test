@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block title %}
+            {{ title }}
+    {% endblock %}
+    {% block data_content %}
+        <a href="/products/" title="Return to all site categories">Categories</a> &nbsp; &nbsp; &nbsp;
+        {% if not error %}
+            {% for prod in products %}
+                <div>
+                    <h3>{{ prod.name }}</h3>
+                    <p>{{ prod.description }}</p>
+                    <a href="/products/{{ prod.category.slug }}/{{ prod.slug }}/">Product detail</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>{{ msg }}</h1>
+        {% endif %}
+    {% endblock %}

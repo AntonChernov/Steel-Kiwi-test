@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block title %}
+            {{ title }}
+    {% endblock %}
+    {% block data_content %}
+        <a href="/products/last_added_products/" title="Only for authorized users!">New Product list</a> &nbsp; &nbsp; &nbsp;
+        <a href="/products/" title="All categories">Categories</a>
+        {% if not error %}
+            <div>
+                <h3>{{ name }}</h3>
+                <p><h4>Description:</h4> {{ description }}</p>
+                <p><h4>Price: {{ price }}</h4></p>
+                <a href="/products/{{ category_slug }}/">Product category</a>
+            </div>
+        {% else %}
+            <h1>{{ msg }}</h1>
+        {% endif %}
+    {% endblock %}
