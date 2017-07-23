@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=70)),
                 ('slug', models.SlugField(unique=True)),
                 ('description', models.TextField(max_length=300, null=True)),
-                ('category_image', models.ImageField(null=True, upload_to='/static/category_images')),
                 ('is_active', models.BooleanField(default=True)),
             ],
             options={
@@ -36,7 +35,6 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField()),
                 ('description', models.TextField(max_length=400, null=True)),
                 ('price', models.FloatField(default=0.0)),
-                ('product_image', models.ImageField(null=True, upload_to='/static/product_images')),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('modified_at', models.DateTimeField(null=True)),
