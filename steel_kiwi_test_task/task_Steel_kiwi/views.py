@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import Category, Product
 import datetime
 import logging
@@ -95,3 +96,37 @@ def last_add_item(request):
     args = {'error': True, 'msg': 'Invalid request!'}
     logger.info('last_add_item Invalid request! {0}'.format(get_ip_from_request(request)))
     return render(request, 'categories.html', {'data': args}, status=400)
+
+
+class ShowAllCategories(ListView):
+
+    def get(self, request, *args, **kwargs):
+        qs = get_list_or_404(Category, is_active=True)
+        return render(request, 'categories.html', {'categories': qs}, status=200)
+
+
+class ShowProductsInCategory(ListView):
+
+    def get(self, request, *args, **kwargs):
+        qs = get_list_or_404(Product, category__slug=self.kwargs['slug'], is_active=True)
+        return render(request, 'products.html', {'products': qs}, status=200)
+
+
+class ShowDetailProductInfo(DetailView):
+
+    def get(self, request, *args, **kwargs):
+        qs = get_object_or_404(Product, slug=self.kwargs['slug'])
+        return render(request, 'product.html', {'prod': qs}, status=200)
+
+
+class ShowLastAddProductsForThe24Hours(ListView):
+
+    def get(self, request, *args, **kwargs):
+        args = {}
+        if self.request.user.is_authenticated:
+            qs = get_list_or_404(Product, created_at__gte=datetime.datetime.now() - datetime.timedelta(days=1))
+            args['products'] = qs
+            args['error'] = False
+            return render(request, '24_h_products.html', args, status=200)
+        args = {'error': True, 'msg': 'User not authorized!'}
+        return render(request, '24_h_products.html', args, status=401)

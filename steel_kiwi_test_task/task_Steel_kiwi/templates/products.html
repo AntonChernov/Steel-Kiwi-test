@@ -4,14 +4,14 @@
             {{ title }}
     {% endblock %}
     {% block data_content %}
-        <a href="/products/last_added_products/" title="Only for authorized users!">New Product list</a> &nbsp; &nbsp; &nbsp;
-        <a href="/products/" title="All categories">Categories</a>
+        <a href="{% url '24_hours_products' %}" title="Only for authorized users!">New Product list</a> &nbsp; &nbsp; &nbsp;
+        <a href="{% url 'categories' %}" title="All categories">Categories</a>
         {% if not error %}
             {% for prod in products %}
                 <div>
                     <h3>{{ prod.name }}</h3>
                     <p>{{ prod.description }}</p>
-                    <a href="/products/{{ category_slug }}/{{ prod.slug }}/">Product detail</a>
+                    <a href="{% url 'product_info' category_slug=prod.category.slug slug=prod.slug %}">Product detail</a>
                 </div>
             {% endfor %}
         {% else %}
