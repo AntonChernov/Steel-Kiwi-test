@@ -34,7 +34,7 @@ class ProductsDetail(TestCase):
         request1 = client.post('/products/')
         request2 = client.get('/poroducts/')
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request1.status_code, 400)
+        self.assertEqual(request1.status_code, 405)
         self.assertEqual(request2.status_code, 404)
 
     def test_should_return_all_products_in_category_use_category_slug(self):
@@ -45,7 +45,7 @@ class ProductsDetail(TestCase):
         request2 = client.get('/products/' + category.slug + 'qwerty' + '/')
         request3 = client.get('/producasts/' + category.slug + '/')
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request1.status_code, 400)
+        self.assertEqual(request1.status_code, 405)
         self.assertEqual(request2.status_code, 404)
         self.assertEqual(request3.status_code, 404)
 
@@ -58,7 +58,7 @@ class ProductsDetail(TestCase):
         request3 = client.get('/products/' + product.category.slug + '/' + product.slug + 'qwerty' + '/')
         request4 = client.get('/proertducts/' + product.category.slug + '/' + product.slug + '/')
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request1.status_code, 400)
+        self.assertEqual(request1.status_code, 405)
         self.assertEqual(request2.status_code, 404)
         self.assertEqual(request3.status_code, 404)
         self.assertEqual(request4.status_code, 404)

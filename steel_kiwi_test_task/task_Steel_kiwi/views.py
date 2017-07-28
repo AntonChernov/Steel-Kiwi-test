@@ -115,6 +115,7 @@ class ShowProductsInCategory(ListView):
 class ShowDetailProductInfo(DetailView):
 
     def get(self, request, *args, **kwargs):
+        cat_qs = get_object_or_404(Category, slug=self.kwargs['category_slug'])
         qs = get_object_or_404(Product, slug=self.kwargs['slug'])
         return render(request, 'product.html', {'prod': qs}, status=200)
 
